@@ -78,7 +78,6 @@ public class StudentView {
         Startview.add(StudentText, 1,12,15,7);
 
 
-
         ObservableList<String>CourseList = control.getCourses();
         CoursesComB.setItems(CourseList);
         CoursesComB.getSelectionModel().selectFirst();
@@ -92,16 +91,14 @@ public class StudentView {
         GradesComB.setItems(AverageGradesList);
         GradesComB.getSelectionModel().selectFirst();
 
-       // ObservableList<Integer>AverageCourseList = control.getAvgCourse();
-       // GradesComB.setItems(AverageCourseList);
-       // GradesComB.getSelectionModel().selectFirst();
+        ObservableList<Integer>AverageCourseList = control.getAvgCourse();
+        GradesComB.setItems(AverageCourseList);
+        GradesComB.getSelectionModel().selectFirst();
 
 
     }
         public Parent asParent(){
             return Startview;
         }
-
-
 
 }

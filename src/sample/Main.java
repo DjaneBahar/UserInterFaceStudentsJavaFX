@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    static String url="jdbc:sqlite:/Users/baharsadik/Desktop/Datalogi/data.db";
+    static String url="jdbc:sqlite:C:/Users/bahar/OneDrive/Desktop/lib/data.db";
     static StudentModel SDB = new StudentModel(url);
 
     @Override
@@ -16,7 +16,7 @@ public class Main extends Application {
 
         Controller control = new Controller(SDB);
         StudentView view = new StudentView(SDB,control);
-        //control.setView(view);
+        control.setView(view);
 
         primaryStage.setTitle("Student Form");
         primaryStage.setScene(new Scene(view.asParent(), 600, 475));

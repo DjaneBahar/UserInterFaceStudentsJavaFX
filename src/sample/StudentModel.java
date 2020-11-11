@@ -55,6 +55,22 @@ public class StudentModel {
         return CourseNames;
     }
 
+    public ArrayList<Integer> GradesQuerystmt(){
+        ArrayList<Integer> Grades=new ArrayList<Integer>();
+        String sql = "SELECT grade FROM Grades;";
+        ResultSet rs;
+        try {
+            rs = stmt.executeQuery(sql);
+            while (rs!=null && rs.next()){
+                int grade=rs.getInt(1);
+                Grades.add(grade);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        return Grades;
+    }
 
     public ArrayList<Integer> AverageGradesQuerystmt(){
         ArrayList<Integer> AvgGrade = new ArrayList<Integer>();
@@ -91,26 +107,6 @@ public class StudentModel {
     }
 
 
-
-    public ArrayList<Integer> GradesQuerystmt(){
-        ArrayList<Integer> Grades=new ArrayList<Integer>();
-        String sql = "SELECT grade FROM Grades;";
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                int grade=rs.getInt(1);
-                Grades.add(grade);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return Grades;
-    }
-
-
-
     public  void preparedStmtToFromQuery(){
 
         String sql="SELECT D1.StudentID, D1.name FROM Student as D1 SELECT "+
@@ -128,42 +124,45 @@ public class StudentModel {
         }
     }
 
-    public ArrayList<PrintOut> FindPrintOut(String from, String to, double time){
-        ArrayList<PrintOut> Trips=new ArrayList<PrintOut>();
+    public ArrayList<PrintOutStudent> FindPrintOutStudent(String name, String courses,
+                           Integer grades, double avgGr, double avgC){
+        ArrayList<PrintOutStudent> Print = new ArrayList<PrintOutStudent>();
         try {
-            pstmt.setString(1, from);
-            pstmt.setString(2, to);
-            pstmt.setFloat(3, (float) time);
-            ResultSet rs=pstmt.executeQuery();
-            while (rs!=null && rs.next()){
-                PrintOut trip=new PrintOut(rs.getInt(1),
-                        rs.getString(2), rs.getFloat(3),
-                        rs.getString(4),rs.getDouble(5));
-                Trips.add(trip);
+            pstmt.setString(1, name);
+            pstmt.setString(2, courses);
+            pstmt.setInt(3,  grades);
+            pstmt.setFloat(4, (float) avgGr);
+            pstmt.setFloat(5,(float) avgC);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs != null && rs.next()){
+                PrintOutStudent print = new PrintOutStudent(rs.getString(1),
+                        rs.getString(2), rs.getInt(3),
+                        (int) rs.getFloat(4), (int) rs.getFloat(5));
+                Print.add(print);
             }
         }catch(SQLException e)
         {
             e.printStackTrace();
-
         }
-        return Trips;
-    }
+        return Print;
+    }}
 
-}
+class PrintOutStudent{
+    String StudentName;
+    String CoursesTaken;
+    Integer TotalGrades;
+    double AverageGrade;
+    double AverageGradeCourse;
 
+    public PrintOutStudent(String name, String courses, Integer grades,
+                           double avgGr, double avgC){
 
-class PrintOut{
-    Integer TrainID;
-    String From;
-    double departure;
-    String To;
-    double arrival;
-    public PrintOut(Integer TID,String from, double dep, String to, double arr ){
-        this.arrival=arr;
-        this.departure=dep;
-        this.From=from;
-        this.To = to;
-        this.TrainID=TID;
+        this.StudentName = name;
+        this.CoursesTaken = courses;
+        this.TotalGrades = grades;
+        this.AverageGrade = avgGr;
+        this.AverageGradeCourse = avgC;
     }
 
 }

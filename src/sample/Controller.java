@@ -30,74 +30,66 @@ public class Controller {
         e.printStackTrace();
         System.out.println(e.getMessage());
     }
-    }
+}
 
     public ObservableList<String> getStudents(){
-        ArrayList<String> SNames= model.StudentNameQuerystmt();
+        ArrayList<String> SNames = model.StudentNameQuerystmt();
         ObservableList<String> StudentNames = FXCollections.observableArrayList(SNames);
         return StudentNames;
     }
 
     public ObservableList<String> getCourses(){
-        ArrayList<String> CNames= model.CourseNameQuerystmt();
+        ArrayList<String> CNames = model.CourseNameQuerystmt();
         ObservableList <String> CourseNames = FXCollections.observableArrayList(CNames);
         return CourseNames;
     }
 
-   // public ObservableList<Integer> getAvgCourse(){
-    //    ArrayList<Integer> avgCourse = model.CourseNameQuerystmt();
-     //   ObservableList <Integer> AvgC = FXCollections.observableArrayList(avgCourse);
-     //   return AvgC;
-   // }
+    public ObservableList<Integer> getGrades(){
+        ArrayList<Integer> Grades = model.GradesQuerystmt();
+        ObservableList<Integer> SGrade = FXCollections.observableArrayList(Grades);
 
+        return SGrade;
+    }
 
+    public ObservableList<Integer> getAvgCourse(){
+        ArrayList<Integer> AvgGradesCourse = model.AverageCourseQuerystmt();
+        ObservableList<Integer> AvgGradesCourseObs = FXCollections.observableArrayList(AvgGradesCourse);
 
-
-    public  ObservableList<Integer> getGrades(){
-        ArrayList<Integer> Grades = new ArrayList<>();
-        for(int i=0;i<12;i++){
-            Grades.add(i);
-        }
-
-        ObservableList<Integer> GradesObs = FXCollections.observableArrayList(Grades);
-        return GradesObs;
+        return AvgGradesCourseObs;
     }
 
     public  ObservableList<Integer> getAvgGrades(){
-        ArrayList<Integer> AvgGrades = new ArrayList<>();
-        for(int i=0;i<12;i++){
-            AvgGrades.add(i);
-        }
+        ArrayList<Integer> AvgGrades = model.AverageGradesQuerystmt();
 
         ObservableList<Integer> AvgGradesObs = FXCollections.observableArrayList(AvgGrades);
         return AvgGradesObs;
     }
 
 
+    public void setView(StudentView view){
+       this.view=view;
+       view.exitBtn.setOnAction(e-> Platform.exit());
+       EventHandler<ActionEvent> DisplayPrintOutStudent = e->
+               HandlePrintPart(view.StudentComB.getValue(),
+               view.CoursesComB.getValue(),
+               view.GradesComB.getValue(), view.AvgGradeComb.getValue(),
+               view.AvgCourseComb.getValue(),view.StudentText);
+
+        view.PrintOutResults.setOnAction(DisplayPrintOutStudent);
+    }
+
+     public void HandlePrintPart(String Students, String Courses, Integer Grades, double AvgGr, double AvgC,
+          TextArea studentText){
+
+          studentText.clear();
+          studentText.appendText("Student Name:                 Courses:                  Grades:                     Average Grade:                     Average Grade of selected Course: \n");
+          model.preparedStmtToFromQuery();
+
+          ArrayList<PrintOutStudent>Print = model.FindPrintOutStudent(Students,Courses,Grades,AvgGr, AvgC);
+            for(int i=0;i<Print.size();i++){
+
+               // String stName = String.format(PrintOutStudent.get(i).name);
+
+            }
+ }
 }
-
-   // public void setView(StudentView view){
-    //    this.view=view;
-     //   view.exitBtn.setOnAction(e-> Platform.exit());
-     //   EventHandler<ActionEvent> PrintFirstPart = e->HandlePrintFirstPart(view.StudentComB.getValue(), view.CoursesComB.getValue(),
-      //          view.GradesComB.getValue(), view.StudentText);
-      //  view.PrintOutResults.setOnAction(PrintFirstPart);
-   // }
-
-     // public void HandlePrintFirstPart(String Students, String Courses, Integer Grades,
-   //         TextArea studentText){
-//
-       //     StudentText.clear();
-       //     StudentText.appendText("Student Name:                , Courses:           ,Grades:\n");
-       //     model.preparedStmtToFromQuery();
-       //     double AverageGrade = ((double) Grades/2);
-       //     ArrayList<PrintOut>Print=model.FindPrintOut();
-
-
-
-
-//}
-//user can select a student and get print out courses taken and the grades
-//       and the average grade for student and a course
-//       and get average
-//    grade on a selected course.
