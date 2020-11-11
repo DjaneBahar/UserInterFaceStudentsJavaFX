@@ -30,9 +30,6 @@ public class StudentView {
     Label SelectCourseLbl = new Label("Select a Course and Semester");
     Label SemesterLbl = new Label("Select Semester");
 
-    //select semester of the course
-    //Label SelectSemesterLbl = new Label("Select Semester ");
-
     //Buttons
     Button PrintOutResults = new Button("Show Results");
     Button exitBtn = new Button("Exit");
@@ -43,10 +40,9 @@ public class StudentView {
 
     ComboBox<String> StudentComB = new ComboBox<String>();
     ComboBox<String> CoursesComB = new ComboBox<String>();
-    ComboBox<String> SemesterComb = new ComboBox<String>();
     ComboBox<Integer> GradesComB = new ComboBox<Integer>();
     ComboBox<Integer> AvgGradeComb = new ComboBox<Integer>();
-    ComboBox<Integer> AvgCourseComnb = new ComboBox<Integer>();
+    ComboBox<Integer> AvgCourseComb = new ComboBox<Integer>();
 
     //ComboBox<Integer> AverageGradeComB=new ComboBox<Integer>();
     //ComboBox<Integer> AverageGradeCourseComb=new ComboBox<Integer>();
@@ -67,12 +63,12 @@ public class StudentView {
         Startview.setHgap(1);
 
         //Startview.add(StudentsHeader,1,1);
-        Startview.add(StudentsLbl,1,2);
+        Startview.add(StudentsLbl,1,3);
         ObservableList<String>StudentList = control.getStudents();
         StudentComB.setItems(StudentList);
         StudentComB.getSelectionModel().selectFirst();
-        Startview.add(StudentComB,6,2);
-        Startview.add(SemesterLbl,5,9);
+        Startview.add(StudentComB,4,3);
+
 
         Startview.add(CourseHeader,1,7);
         Startview.add(SelectCourseLbl,1,9);
@@ -86,14 +82,7 @@ public class StudentView {
         ObservableList<String>CourseList = control.getCourses();
         CoursesComB.setItems(CourseList);
         CoursesComB.getSelectionModel().selectFirst();
-        Startview.add(CoursesComB,2,9);
-
-        ObservableList<String>SemesterList = control.getSemester();
-        SemesterComb.setItems(SemesterList);
-        SemesterComb.getSelectionModel().selectFirst();
-        Startview.add(SemesterComb,6,9);
-
-
+        Startview.add(CoursesComB,4,9);
 
         ObservableList<Integer>GradesList = control.getGrades();
         GradesComB.setItems(GradesList);
@@ -102,6 +91,11 @@ public class StudentView {
         ObservableList<Integer>AverageGradesList = control.getAvgGrades();
         GradesComB.setItems(AverageGradesList);
         GradesComB.getSelectionModel().selectFirst();
+
+       // ObservableList<Integer>AverageCourseList = control.getAvgCourse();
+       // GradesComB.setItems(AverageCourseList);
+       // GradesComB.getSelectionModel().selectFirst();
+
 
     }
         public Parent asParent(){

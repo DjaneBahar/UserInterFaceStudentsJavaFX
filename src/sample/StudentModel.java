@@ -39,7 +39,7 @@ public class StudentModel {
 
     public ArrayList <String> CourseNameQuerystmt(){
         ArrayList <String> CourseNames = new ArrayList <String>();
-        String sql = "SELECT courseID FROM Course;";
+        String sql = "SELECT coursename FROM Course;";
         ResultSet rs;
         try {
             rs = stmt.executeQuery(sql);
@@ -55,23 +55,6 @@ public class StudentModel {
         return CourseNames;
     }
 
-    public ArrayList<String> CourseSemesterQuerystmt(){
-        ArrayList<String> CourseSemester=new ArrayList<String>();
-        String sql = "SELECT semester FROM Course;";
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                String semester = rs.getString(1);
-                CourseSemester.add(semester);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-
-        }
-        return CourseSemester;
-    }
 
     public ArrayList<Integer> AverageGradesQuerystmt(){
         ArrayList<Integer> AvgGrade = new ArrayList<Integer>();

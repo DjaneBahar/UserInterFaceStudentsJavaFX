@@ -44,12 +44,13 @@ public class Controller {
         return CourseNames;
     }
 
-     public ObservableList <String> getSemester(){
-         ArrayList<String> semester = model.CourseSemesterQuerystmt();
-         ObservableList <String> CourseSemester = FXCollections.observableArrayList(semester);
-         return CourseSemester;
+   // public ObservableList<Integer> getAvgCourse(){
+    //    ArrayList<Integer> avgCourse = model.CourseNameQuerystmt();
+     //   ObservableList <Integer> AvgC = FXCollections.observableArrayList(avgCourse);
+     //   return AvgC;
+   // }
 
-     }
+
 
 
     public  ObservableList<Integer> getGrades(){
