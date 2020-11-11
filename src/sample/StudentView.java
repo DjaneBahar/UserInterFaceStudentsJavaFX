@@ -62,7 +62,7 @@ public class StudentView {
         Startview.setVgap(5);
         Startview.setHgap(1);
 
-        //Startview.add(StudentsHeader,1,1);
+        Startview.add(StudentsHeader,1,1);
         Startview.add(StudentsLbl,1,3);
         ObservableList<String>StudentList = control.getStudents();
         StudentComB.setItems(StudentList);

@@ -112,11 +112,11 @@ public class StudentModel {
 
 
     public  void preparedStmtToFromQuery(){
-        String sql="SELECT D1.StudentID, D1.name FROM Student as D1 SELECT "+
-                "D2.courseID, D2.semester FROM Course as D2 SELECT D3.grade FROM Grades as D3"
-                + "WHERE D1.name=? AND D2.courseID=? AND D3.grade = ?;"
 
-                ;
+        String sql="SELECT D1.StudentID, D1.name FROM Student as D1 SELECT "+
+                "D2.coursename FROM Course as D2 SELECT D3.grade FROM Grades as D3 "+
+                "SELECT D4.SID, avg(grade) FROM Grades GROUP BY SID ORDER BY SID as D4 "
+                + "WHERE D1.name=? AND D2.courseID=? AND D3.grade = ? AND D4 = ?;";
 
 
         try {
