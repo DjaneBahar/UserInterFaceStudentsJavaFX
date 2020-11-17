@@ -57,70 +57,16 @@ public class StudentModel {
         return CourseNames;
     }
 
-    /*public ArrayList<Integer> GradesQuerystmt(){
-        ArrayList<Integer> Grades=new ArrayList<Integer>();
-        String sql = "SELECT grade FROM Grades;";
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                int grade=rs.getInt(1);
-                Grades.add(grade);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return Grades;
-    }
-
-    public ArrayList<Integer> AverageGradesQuerystmt(){
-        ArrayList<Integer> AvgGrade = new ArrayList<Integer>();
-        String sql = "SELECT SID, avg(grade) FROM Grades GROUP BY SID ORDER BY SID;";
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                int average = rs.getInt(1);
-                AvgGrade.add(average);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return AvgGrade;
-    }
-
-    public ArrayList<Integer> AverageCourseQuerystmt(){
-        ArrayList<Integer> AvgCourse = new ArrayList<Integer>();
-        String sql = "SELECT CID, avg(grade) FROM Grades GROUP BY CID ORDER BY CID;";
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                int averageC = rs.getInt(1);
-                AvgCourse.add(averageC);
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return AvgCourse;
-    }*/
 
 
     public  void preparedStmtToFromQuery(){
-        /*String sql="SELECT D1.studentID, D1.name, D2.coursename, D3.grade " +
-                   "FROM Grades as D3 " +
-                   "JOIN Student as D1 ON D3.SID = D1.studentID " +
-                   "JOIN Course as D2 ON D3.CID = D2.courseID " +
-                   "WHERE D1.name = ? ;";*/
 
-        String sql="SELECT D3.studentID, D3.name, D1.coursename, D2.grade " +
-                "FROM Grades as D2 " +
-                "JOIN Student as D3 ON D2.SID = D3.studentID " +
-                "JOIN Course as D1 ON D2.CID = D1.courseID " +
-                "WHERE D3.name = ? ;";
+
+        String sql="SELECT D1.name, D2.coursename, D3.grade " +
+                "FROM Grades as D3 " +
+                "JOIN Student as D1 ON D3.SID = D1.studentID " +
+                "JOIN Course as D2 ON D3.CID = D2.courseID " +
+                "WHERE D1.name = ? ;";
 
 
 
@@ -130,11 +76,12 @@ public class StudentModel {
                 "JOIN Course as D2 ON D3.CID = D2.courseID " +
                 "WHERE D1.name = ? ;";
 
-        String sqlAvgCourse = "SELECT avg()";
+        //String sqlAvgCourse = "SELECT D1.coursename, avg()";
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt2 = conn.prepareStatement(sqlAvgGrade);
+
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -142,18 +89,20 @@ public class StudentModel {
         }
     }
 
-    public ArrayList<PrintOutStudent> FindPrintOutStudent(String name){
+    public ArrayList<PrintOutStudent> FindPrintOutStudent(String name, String course){
         ArrayList<PrintOutStudent> Print = new ArrayList<PrintOutStudent>();
         try {
             pstmt.setString(1, name);
             pstmt2.setString(1, name);
+            //pstmt2.setString(2,course);
             ResultSet rs = pstmt.executeQuery();
             ResultSet rs2 = pstmt2.executeQuery();
 
             while (rs != null && rs.next()){
-                PrintOutStudent print = new PrintOutStudent(rs.getString(1),
-                        rs.getString(2), rs.getInt(3), rs2.getFloat(1));
-                Print.add(print);
+            PrintOutStudent print = new PrintOutStudent(rs.getString(1), rs.getString(2),
+            rs.getInt(3), rs2.getFloat(1));
+            //,rs2.getString(2), rs2.getFloat(1)
+            Print.add(print);
             }
         }catch(SQLException e)
         {
@@ -167,6 +116,8 @@ class PrintOutStudent{
     String CoursesTaken;
     Integer TotalGrades;
     float AvgGrades;
+    //String CourseName;
+    //float AvgCourse;
 
 
     public PrintOutStudent(String name, String courses, Integer grades, float avgGr){
@@ -175,6 +126,9 @@ class PrintOutStudent{
         this.CoursesTaken = courses;
         this.TotalGrades = grades;
         this.AvgGrades = avgGr;
+        //this.CourseName = courseN;
+        //this.AvgCourse = avgC;
+
 
     }
 

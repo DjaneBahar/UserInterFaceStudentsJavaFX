@@ -9,11 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
- //user can select a student and get print out courses taken and the grades
-   //       and the average grade for student and a course
-//       and get average
-     //    grade on a selected course.
-
 public class StudentView {
 
     StudentModel model;
@@ -28,24 +23,15 @@ public class StudentView {
     //Find average grade on a selected course
     Label CourseHeader = new Label("Find average grade on a selected course");
     Label SelectCourseLbl = new Label("Select a Course and Semester");
-    Label SemesterLbl = new Label("Select Semester");
 
     //Buttons
     Button PrintOutResults = new Button("Show Results");
     Button exitBtn = new Button("Exit");
 
-
-
     TextArea StudentText = new TextArea();
 
     ComboBox<String> StudentComB = new ComboBox<String>();
     ComboBox<String> CoursesComB = new ComboBox<String>();
-    ComboBox<Integer> GradesComB = new ComboBox<Integer>();
-    ComboBox<Integer> AvgGradeComb = new ComboBox<Integer>();
-    ComboBox<Integer> AvgCourseComb = new ComboBox<Integer>();
-
-    //ComboBox<Integer> AverageGradeComB=new ComboBox<Integer>();
-    //ComboBox<Integer> AverageGradeCourseComb=new ComboBox<Integer>();
 
     public StudentView(StudentModel model, Controller control){
         this.model = model;
@@ -69,7 +55,6 @@ public class StudentView {
         StudentComB.getSelectionModel().selectFirst();
         Startview.add(StudentComB,4,3);
 
-
         Startview.add(CourseHeader,1,7);
         Startview.add(SelectCourseLbl,1,9);
 
@@ -77,24 +62,10 @@ public class StudentView {
         Startview.add(PrintOutResults,1,10);
         Startview.add(StudentText, 1,12,15,7);
 
-
         ObservableList<String>CourseList = control.getCourses();
         CoursesComB.setItems(CourseList);
         CoursesComB.getSelectionModel().selectFirst();
         Startview.add(CoursesComB,4,9);
-
-        /*ObservableList<Integer>GradesList = control.getGrades();
-        GradesComB.setItems(GradesList);
-        GradesComB.getSelectionModel().selectFirst();
-
-        ObservableList<Integer>AverageGradesList = control.getAvgGrades();
-        GradesComB.setItems(AverageGradesList);
-        GradesComB.getSelectionModel().selectFirst();
-
-        ObservableList<Integer>AverageCourseList = control.getAvgCourse();
-        GradesComB.setItems(AverageCourseList);
-        GradesComB.getSelectionModel().selectFirst();*/
-
 
     }
         public Parent asParent(){
