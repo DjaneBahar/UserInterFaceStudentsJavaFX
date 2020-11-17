@@ -44,7 +44,7 @@ public class Controller {
         return CourseNames;
     }
 
-    public ObservableList<Integer> getGrades(){
+    /*public ObservableList<Integer> getGrades(){
         ArrayList<Integer> Grades = model.GradesQuerystmt();
         ObservableList<Integer> SGrade = FXCollections.observableArrayList(Grades);
 
@@ -63,33 +63,35 @@ public class Controller {
 
         ObservableList<Integer> AvgGradesObs = FXCollections.observableArrayList(AvgGrades);
         return AvgGradesObs;
-    }
+    }*/
 
 
     public void setView(StudentView view){
        this.view=view;
        view.exitBtn.setOnAction(e-> Platform.exit());
-       EventHandler<ActionEvent> DisplayPrintOutStudent = e->
-               HandlePrintPart(view.StudentComB.getValue(),
-               view.CoursesComB.getValue(),
-               view.GradesComB.getValue(), view.AvgGradeComb.getValue(),
-               view.AvgCourseComb.getValue(),view.StudentText);
+       EventHandler<ActionEvent> DisplayPrintOutStudent = e-> HandlePrintPart(view.StudentComB.getValue(),
+               view.CoursesComB.getValue(),view.StudentText);
 
         view.PrintOutResults.setOnAction(DisplayPrintOutStudent);
     }
 
-     public void HandlePrintPart(String Students, String Courses, Integer Grades, double AvgGr, double AvgC,
-          TextArea studentText){
+     public void HandlePrintPart(String Students, String Courses, TextArea studentText){
 
           studentText.clear();
-          studentText.appendText("Student Name:                 Courses:                  Grades:                     Average Grade:                     Average Grade of selected Course: \n");
           model.preparedStmtToFromQuery();
+          ArrayList<PrintOutStudent>Print = model.FindPrintOutStudent(Students);
+          System.out.println("ArraySize;  " + Print.size());
+            for(int i=0; i<Print.size(); i++){
+                studentText.appendText(Print.get(i).StudentName + " has taken the courses: "
+                        + Print.get(i).CoursesTaken + "\n" + (Print.get(i).StudentName + " has gotten the grades: "
+                          + Print.get(i).TotalGrades +
+                        " and has the average grade: " + Print.get(i).AvgGrades ));
 
-          ArrayList<PrintOutStudent>Print = model.FindPrintOutStudent(Students,Courses,Grades,AvgGr, AvgC);
-            for(int i=0;i<Print.size();i++){
 
-               // String stName = String.format(PrintOutStudent.get(i).name);
+
 
             }
+
+
  }
 }

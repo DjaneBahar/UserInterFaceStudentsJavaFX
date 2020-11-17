@@ -7,18 +7,20 @@ import static java.sql.DriverManager.getConnection;
 
 public class StudentModel {
     Connection conn= null;
-    Statement stmt =null;
-    PreparedStatement pstmt=null;
+    Statement stmt = null;
+    PreparedStatement pstmt = null;
+    PreparedStatement pstmt2 = null;
     String url;
+
     public StudentModel(String url){
         this.url=url;
     }
 
     public void connect() throws SQLException {
-        conn=getConnection(this.url);
+        conn = getConnection(this.url);
     }
     public void CreateStatement() throws SQLException{
-        this.stmt=conn.createStatement();
+        this.stmt = conn.createStatement();
     }
     public ArrayList <String> StudentNameQuerystmt(){
         ArrayList <String> StudentNames = new ArrayList <String>();
@@ -55,7 +57,7 @@ public class StudentModel {
         return CourseNames;
     }
 
-    public ArrayList<Integer> GradesQuerystmt(){
+    /*public ArrayList<Integer> GradesQuerystmt(){
         ArrayList<Integer> Grades=new ArrayList<Integer>();
         String sql = "SELECT grade FROM Grades;";
         ResultSet rs;
@@ -104,19 +106,35 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
         return AvgCourse;
-    }
+    }*/
 
 
     public  void preparedStmtToFromQuery(){
+        /*String sql="SELECT D1.studentID, D1.name, D2.coursename, D3.grade " +
+                   "FROM Grades as D3 " +
+                   "JOIN Student as D1 ON D3.SID = D1.studentID " +
+                   "JOIN Course as D2 ON D3.CID = D2.courseID " +
+                   "WHERE D1.name = ? ;";*/
 
-        String sql="SELECT D1.StudentID, D1.name FROM Student as D1 SELECT "+
-                "D2.coursename FROM Course as D2 SELECT D3.grade FROM Grades as D3 "+
-                "SELECT D4.SID, avg(grade) FROM Grades GROUP BY SID ORDER BY SID as D4 "
-                + "WHERE D1.name=? AND D2.courseID=? AND D3.grade = ? AND D4 = ?;";
+        String sql="SELECT D3.studentID, D3.name, D1.coursename, D2.grade " +
+                "FROM Grades as D2 " +
+                "JOIN Student as D3 ON D2.SID = D3.studentID " +
+                "JOIN Course as D1 ON D2.CID = D1.courseID " +
+                "WHERE D3.name = ? ;";
 
+
+
+        String sqlAvgGrade ="SELECT  avg(D3.grade) " +
+                "FROM Grades as D3 " +
+                "JOIN Student as D1 ON D3.SID = D1.studentID " +
+                "JOIN Course as D2 ON D3.CID = D2.courseID " +
+                "WHERE D1.name = ? ;";
+
+        String sqlAvgCourse = "SELECT avg()";
 
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt2 = conn.prepareStatement(sqlAvgGrade);
         }catch(SQLException e)
         {
             e.printStackTrace();
@@ -124,21 +142,17 @@ public class StudentModel {
         }
     }
 
-    public ArrayList<PrintOutStudent> FindPrintOutStudent(String name, String courses,
-                           Integer grades, double avgGr, double avgC){
+    public ArrayList<PrintOutStudent> FindPrintOutStudent(String name){
         ArrayList<PrintOutStudent> Print = new ArrayList<PrintOutStudent>();
         try {
             pstmt.setString(1, name);
-            pstmt.setString(2, courses);
-            pstmt.setInt(3,  grades);
-            pstmt.setFloat(4, (float) avgGr);
-            pstmt.setFloat(5,(float) avgC);
+            pstmt2.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
+            ResultSet rs2 = pstmt2.executeQuery();
 
             while (rs != null && rs.next()){
                 PrintOutStudent print = new PrintOutStudent(rs.getString(1),
-                        rs.getString(2), rs.getInt(3),
-                        (int) rs.getFloat(4), (int) rs.getFloat(5));
+                        rs.getString(2), rs.getInt(3), rs2.getFloat(1));
                 Print.add(print);
             }
         }catch(SQLException e)
@@ -152,17 +166,16 @@ class PrintOutStudent{
     String StudentName;
     String CoursesTaken;
     Integer TotalGrades;
-    double AverageGrade;
-    double AverageGradeCourse;
+    float AvgGrades;
 
-    public PrintOutStudent(String name, String courses, Integer grades,
-                           double avgGr, double avgC){
+
+    public PrintOutStudent(String name, String courses, Integer grades, float avgGr){
 
         this.StudentName = name;
         this.CoursesTaken = courses;
         this.TotalGrades = grades;
-        this.AverageGrade = avgGr;
-        this.AverageGradeCourse = avgC;
+        this.AvgGrades = avgGr;
+
     }
 
 }
