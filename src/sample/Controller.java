@@ -18,7 +18,6 @@ import java.util.logging.Handler;
 
 public class Controller {
 
-   // Scanner scan = new Scanner();
     StudentModel model;
     StudentView view;
 
@@ -48,6 +47,12 @@ public class Controller {
         return CourseNames;
     }
 
+    public ObservableList<Integer> getSetGrades(){
+        //for(int i=0;i<7;i++){
+       Integer [] setGrade = { -3, 0, 2, 4, 7, 10,12 };
+       ObservableList<Integer> SetGrades = FXCollections.observableArrayList(setGrade);
+        return SetGrades;
+    }
 
     public void setView(StudentView view){
        this.view=view;
@@ -62,6 +67,8 @@ public class Controller {
 
         view.showRstBtn.setOnAction(DisplayPrintOutStudent);
         view.avgCourseBtn.setOnAction((DisplayPrintOutCourse));
+
+
     }
 
      public void HandlePrintStudent(String Students, TextArea studentText){
@@ -69,7 +76,6 @@ public class Controller {
           studentText.clear();
           model.preparedStmtToFromQuery();
           ArrayList<StudentModel.PrintOutStudent> Print = model.FindPrintOutStudent(Students);
-          System.out.println("ArraySize;  " + Print.size());
 
             for(int i=0; i<Print.size(); i++){
                // if (Print.get(i).TotalGrades == 0){
@@ -89,17 +95,12 @@ public class Controller {
          courseText.clear();
          model.preparedStmtToFromQuery();
          ArrayList<StudentModel.PrintOutCourse> Print = model.FindPrintOutCourse(Courses);
-         System.out.println("ArraySize;  " + Print.size());
 
          for(int j=0; j<Print.size(); j++){
              courseText.appendText("The course " + Print.get(j).CourseName +
                      " has the average grade " + Print.get(j).AvgCourseGrade);
-
-
          }
 
-
     }
-
 
 }

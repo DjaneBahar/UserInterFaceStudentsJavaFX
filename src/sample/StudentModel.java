@@ -74,10 +74,10 @@ public class StudentModel {
                 "WHERE D1.name = ? ;";
 
 
-         String sqlAvgCourse = "SELECT  coursename, avg(grade) "+
-                                "FROM Grades " +
-                 "JOIN Course ON CID = courseID " +
-                                "WHERE coursename = ?; ";
+        String sqlAvgCourse = "SELECT  coursename, avg(grade) "+
+                "FROM Grades " +
+                "JOIN Course ON CID = courseID " +
+                "WHERE coursename = ?; ";
 
 
         try {
@@ -101,10 +101,10 @@ public class StudentModel {
             ResultSet rs2 = pstmt2.executeQuery();
 
             while (rs != null && rs.next()){
-            PrintOutStudent print = new PrintOutStudent(rs.getString(1), rs.getString(2),
-            rs.getInt(3), rs2.getFloat(1));
-         //
-            Print.add(print);
+                PrintOutStudent print = new PrintOutStudent(rs.getString(1), rs.getString(2),
+                        rs.getInt(3), rs2.getFloat(1));
+                //
+                Print.add(print);
             }
         }catch(SQLException e)
         {
@@ -133,26 +133,26 @@ public class StudentModel {
         return Print;
 
 
-}
+    }
 
-class PrintOutStudent{
-    String StudentName;
-    String CoursesTaken;
-    Integer TotalGrades;
-    float AvgGrades;
+    class PrintOutStudent{
+        String StudentName;
+        String CoursesTaken;
+        Integer TotalGrades;
+        float AvgGrades;
 
-    public PrintOutStudent(String name, String courses, Integer grades, float avgGr){
+        public PrintOutStudent(String name, String courses, Integer grades, float avgGr){
 //
-        this.StudentName = name;
-        this.CoursesTaken = courses;
-        this.TotalGrades = grades;
-        this.AvgGrades = avgGr;
+            this.StudentName = name;
+            this.CoursesTaken = courses;
+            this.TotalGrades = grades;
+            this.AvgGrades = avgGr;
+
+        }
 
     }
 
-}
-
-class PrintOutCourse{
+    class PrintOutCourse{
 
 
         String CourseName;
@@ -163,6 +163,6 @@ class PrintOutCourse{
             this.CourseName = cName;
             this.AvgCourseGrade = avgC;
         }
-}
+    }
 
 }
