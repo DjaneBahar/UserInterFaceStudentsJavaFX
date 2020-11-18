@@ -66,7 +66,7 @@ public class Controller {
                 view.CourseText);
 
 
-        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), getStudents().indexOf(view.StudentComB.getValue()), "C2");
+        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), getStudents().indexOf(view.StudentComB.getValue()), "C2", view.StudentComB.getValue());
         //getStudents().indexOf(view.StudentComB.getValue());
 
 
@@ -78,13 +78,13 @@ public class Controller {
 
     }
 
-    public void HandleAddGrade(Integer grade, Integer Student, String course){
+    public void HandleAddGrade(Integer grade, Integer Student, String course, String aStudent){
         /*
         System.out.println(grade);
         System.out.println(Student);
         System.out.println(course);
          */
-        model.setGrades(course, Student, grade);
+        model.setGrades(course, Student, grade, aStudent);
         System.out.println(Student);
         //Elementerne i comboboxen er ikke sorteret ligsom i tabellen. Det ville hjælpe hvis de var det.
         // Så vi kan redigere en karakter nu, men får ikke det rigtige studentID herfra.

@@ -137,7 +137,7 @@ public class StudentModel {
 
     }
 
-    public void setGrades(String course, Integer student, Integer grade){
+    public void setGrades(String course, Integer student, Integer grade, String theStudent){
         //Lortet virker!!!
         System.out.println(course);
         System.out.println(student);
@@ -145,11 +145,30 @@ public class StudentModel {
 
         //Kunne måske have statement hvor jeg henter Studentid fra  Student klassen først. Men hvordan gjorde de i den anden? den med student.
 
+        String studentID = null;
+        String sql = "SELECT studentID from Student WHERE name = '" +
+                theStudent +
+                "';";
+        ResultSet rs;
+        try {
+            rs = conn.createStatement().executeQuery(sql);
+            while (rs!=null && rs.next()){
+                studentID = rs.getString(1);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(studentID + "small schlong");
+
+
+
         String sqlSetGrade = "UPDATE Grades " +
         "SET grade = " +
                 grade +
-        " WHERE SID = 'S" +
-                student +
+        " WHERE SID = '" +
+                studentID +
                 "'" +
                 " AND CID = '" +
                 course +
