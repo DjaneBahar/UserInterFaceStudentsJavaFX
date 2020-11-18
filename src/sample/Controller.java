@@ -67,8 +67,7 @@ public class Controller {
 
 
         EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), view.StudentComB.getSelectionModel().getSelectedIndex(), "C2");
-
-
+        getStudents().indexOf(view.StudentComB.getValue());
 
 
         view.showRstBtn.setOnAction(DisplayPrintOutStudent);
@@ -86,7 +85,12 @@ public class Controller {
         System.out.println(course);
          */
         model.setGrades(course, Student, grade);
-        System.out.println(view.StudentComB.getSelectionModel().getSelectedIndex());
+        System.out.println(Student);
+        //Elementerne i comboboxen er ikke sorteret ligsom i tabellen. Det ville hjælpe hvis de var det.
+        // Så vi kan redigere en karakter nu, men får ikke det rigtige studentID herfra.
+        // Kan måske også hente det ud fra navnet. Men det vil også sige at karaktererne bliver vist
+        //Så det eneste der går galt er når vi skal skrive et id som vi skal redigere. Der kan vi måske hente det i et query med navnet.
+        //Eller finde på noget smartere/hurtigere. Fordi det burde nok være sorteret alfabetisk, det er nice.
     }
 
     public void HandlePrintStudent(String Students, TextArea studentText){
@@ -106,7 +110,7 @@ public class Controller {
                     + Print.get(i).CoursesTaken + ".\n" + Print.get(i).StudentName + " has gotten the grade "
                     + Print.get(i).TotalGrades + " in this course, " +
                     " \nand has the average grade " + Print.get(i).AvgGrades + " from all courses taken.\n\n");
-            if(Print.get(i).TotalGrades==0){
+            if(Print.get(0).TotalGrades==0){ //Print.get(0).TotalGrades er altså karakteren fra SD 2020. Så det virker faktisk nu. Tror lige jeg skal forstå dette bedre. Men det virker nu.
                 System.out.println("Bigschlong");
                 studentText.appendText("typegrade\n");
                 view.ChooseGradeLbl.setVisible(true);
@@ -116,6 +120,10 @@ public class Controller {
                 //køre metode der sender info til model
                 //model.setGrades(Print.get(i).CoursesTaken, Print.get(i).StudentName);
 //Print.get(i).CoursesTaken.//Prøveatbrugedettetilatsættekarakterenlignoget.
+            } else {
+                view.ChooseGradeLbl.setVisible(false);
+                view.GradesComB.setVisible(false);
+                view.insertBtn.setVisible(false);
             }
 
         }
