@@ -19,7 +19,7 @@ public class Main extends Application {
         control.setView(view);
 
         primaryStage.setTitle("Student Form");
-        primaryStage.setScene(new Scene(view.asParent(), 600, 475));
+        primaryStage.setScene(new Scene(view.asParent(), 500, 700));
         primaryStage.show();
     }
 
