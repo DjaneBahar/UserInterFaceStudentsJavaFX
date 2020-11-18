@@ -136,7 +136,8 @@ public class StudentModel {
 
     }
 
-    public void setGrades(String course, String student, Integer grade){
+    public void setGrades(String course, Integer student, Integer grade){
+        //Lortet virker!!!
         System.out.println(course);
         System.out.println(student);
         System.out.println(grade);
@@ -146,7 +147,9 @@ public class StudentModel {
         String sqlSetGrade = "UPDATE Grades " +
         "SET grade = " +
                 grade +
-        " WHERE SID = 'S2'" +
+        " WHERE SID = 'S" +
+                (student + 1) +
+                "'" +
                 " AND CID = '" +
                 course +
                 "';";

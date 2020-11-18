@@ -66,7 +66,7 @@ public class Controller {
                 view.CourseText);
 
 
-        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), view.StudentComB.getValue(), "C2");
+        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), view.StudentComB.getSelectionModel().getSelectedIndex(), "C2");
 
 
 
@@ -79,13 +79,14 @@ public class Controller {
 
     }
 
-    public void HandleAddGrade(Integer grade, String Student, String course){
+    public void HandleAddGrade(Integer grade, Integer Student, String course){
         /*
         System.out.println(grade);
         System.out.println(Student);
         System.out.println(course);
          */
         model.setGrades(course, Student, grade);
+        System.out.println(view.StudentComB.getSelectionModel().getSelectedIndex());
     }
 
     public void HandlePrintStudent(String Students, TextArea studentText){
@@ -111,6 +112,7 @@ public class Controller {
                 view.ChooseGradeLbl.setVisible(true);
                 view.GradesComB.setVisible(true);
                 view.insertBtn.setVisible(true);
+
                 //køre metode der sender info til model
                 //model.setGrades(Print.get(i).CoursesTaken, Print.get(i).StudentName);
 //Print.get(i).CoursesTaken.//Prøveatbrugedettetilatsættekarakterenlignoget.
