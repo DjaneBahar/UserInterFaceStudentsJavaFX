@@ -87,6 +87,12 @@ public class Controller {
                         + Print.get(i).CoursesTaken + ".\n" + Print.get(i).StudentName + " has gotten the grade "
                           + Print.get(i).TotalGrades + " in this course, " +
                         " \nand has the average grade " + Print.get(i).AvgGrades + " from all courses taken.\n\n");
+
+                if(Print.get(i).TotalGrades == 0){
+                    System.out.println("Big schlong");
+                    studentText.appendText("type grade \n");
+                    //Print.get(i).CoursesTaken. //Prøve at bruge dette til at sætte karakteren lig noget.
+                }
                 }
      }
 
