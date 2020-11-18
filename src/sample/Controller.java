@@ -66,8 +66,8 @@ public class Controller {
                 view.CourseText);
 
 
-        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), view.StudentComB.getSelectionModel().getSelectedIndex(), "C2");
-        getStudents().indexOf(view.StudentComB.getValue());
+        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), getStudents().indexOf(view.StudentComB.getValue()), "C2");
+        //getStudents().indexOf(view.StudentComB.getValue());
 
 
         view.showRstBtn.setOnAction(DisplayPrintOutStudent);
@@ -112,7 +112,7 @@ public class Controller {
                     " \nand has the average grade " + Print.get(i).AvgGrades + " from all courses taken.\n\n");
             if(Print.get(0).TotalGrades==0){ //Print.get(0).TotalGrades er altså karakteren fra SD 2020. Så det virker faktisk nu. Tror lige jeg skal forstå dette bedre. Men det virker nu.
                 System.out.println("Bigschlong");
-                studentText.appendText("typegrade\n");
+                //studentText.appendText("typegrade\n");
                 view.ChooseGradeLbl.setVisible(true);
                 view.GradesComB.setVisible(true);
                 view.insertBtn.setVisible(true);

@@ -27,6 +27,7 @@ public class StudentModel {
     public ArrayList <String> StudentNameQuerystmt(){
         ArrayList <String> StudentNames = new ArrayList <String>();
         String sql = "SELECT name FROM Student ORDER BY name;";
+        //String sql = "SELECT name FROM Student ORDER BY studentID;"; //Virkede ikke. Af en eller anden grund var janet jensen nummer 1, resten så godt ud.
         ResultSet rs;
         try {
             rs = stmt.executeQuery(sql);
@@ -148,7 +149,7 @@ public class StudentModel {
         "SET grade = " +
                 grade +
         " WHERE SID = 'S" +
-                (student + 1) +
+                student +
                 "'" +
                 " AND CID = '" +
                 course +
