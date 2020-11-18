@@ -12,6 +12,7 @@ public class StudentModel {
     PreparedStatement pstmt2 = null;
     PreparedStatement pstmt3 = null;
     String url;
+    PreparedStatement pstmtAddGrade = null;
 
     public StudentModel(String url){
         this.url=url;
@@ -133,6 +134,43 @@ public class StudentModel {
         return Print;
 
 
+    }
+
+    public void setGrades(String course, String student, Integer grade){
+        System.out.println(course);
+        System.out.println(student);
+        System.out.println(grade);
+
+        //Kunne måske have statement hvor jeg henter Studentid fra  Student klassen først. Men hvordan gjorde de i den anden? den med student.
+
+        String sqlSetGrade = "UPDATE Grades " +
+        "SET grade = " +
+                grade +
+        " WHERE SID = 'S2'" +
+                " AND CID = '" +
+                course +
+                "';";
+        /*
+        String sqlGetGrades="SELECT D1.name, D2.coursename, D3.grade " +
+                "FROM Grades as D3 " +
+                "JOIN Student as D1 ON D3.SID = D1.studentID " +
+                "JOIN Course as D2 ON D3.CID = D2.courseID " +
+                "WHERE D1.name = ? ;";
+
+         */
+
+        try {
+            //Statement updAddGrade = conn.prepareStatement(sqlSetGrade);
+            //updAddGrade.executeUpdate(sqlSetGrade);
+            conn.createStatement().executeUpdate(sqlSetGrade);
+
+
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
     class PrintOutStudent{
