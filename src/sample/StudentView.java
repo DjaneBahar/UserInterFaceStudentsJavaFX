@@ -56,13 +56,9 @@ public class StudentView {
         Startview.setVgap(5);
         Startview.setHgap(1);
 
-        //Print for Students
+        //Students
         Startview.add(StudentsHeader,1,1);
-
         Startview.add(StudentsLbl,1,3);
-        Startview.add(ChooseGradeLbl, 2,3);
-        ChooseGradeLbl.setVisible(false);
-
 
         ObservableList<String>StudentList = control.getStudents();
         StudentComB.setItems(StudentList);
@@ -71,7 +67,9 @@ public class StudentView {
         Startview.add(showRstBtn,1,7);
         Startview.add(StudentText, 1,9,30,10);
 
-
+        //Setgrade
+        Startview.add(ChooseGradeLbl, 2,3);
+        ChooseGradeLbl.setVisible(false);
 
         ObservableList<Integer>GradesList = control.getSetGrades();
         GradesComB.setItems(GradesList);
@@ -82,7 +80,7 @@ public class StudentView {
         Startview.add(insertBtn,2,7);
         insertBtn.setVisible(false);
 
-        //Print for Courses
+        //Average grade Courses
         Startview.add(CourseHeader,1,21);
         Startview.add(SelectCourseLbl,1,23);
 
@@ -93,6 +91,7 @@ public class StudentView {
         Startview.add(avgCourseBtn,1,27);
         Startview.add(CourseText,1,29,30,10);
 
+        //Exit button
         Startview.add(exitBtn,1,41);
 
     }
