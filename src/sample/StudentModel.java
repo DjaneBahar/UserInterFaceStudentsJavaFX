@@ -169,7 +169,7 @@ public class StudentModel {
                 "'" +
                 " AND CID = '" +
                 course +
-                "';";
+                "' AND grade IS NULL;";
 
 
         try {
