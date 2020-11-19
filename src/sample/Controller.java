@@ -79,18 +79,8 @@ public class Controller {
     }
 
     public void HandleAddGrade(Integer grade, Integer Student, String course, String aStudent){
-        /*
-        System.out.println(grade);
-        System.out.println(Student);
-        System.out.println(course);
-         */
         model.setGrades(course, Student, grade, aStudent);
         System.out.println(Student);
-        //Elementerne i comboboxen er ikke sorteret ligsom i tabellen. Det ville hjælpe hvis de var det.
-        // Så vi kan redigere en karakter nu, men får ikke det rigtige studentID herfra.
-        // Kan måske også hente det ud fra navnet. Men det vil også sige at karaktererne bliver vist
-        //Så det eneste der går galt er når vi skal skrive et id som vi skal redigere. Der kan vi måske hente det i et query med navnet.
-        //Eller finde på noget smartere/hurtigere. Fordi det burde nok være sorteret alfabetisk, det er nice.
         view.ChooseGradeLbl.setVisible(false);
         view.GradesComB.setVisible(false);
         view.insertBtn.setVisible(false);
@@ -117,15 +107,9 @@ public class Controller {
                     " \nand has the average grade " + Print.get(i).AvgGrades + " from all courses taken.\n\n");
 
             if(Print.get(0).TotalGrades==0){
-
-                //studentText.appendText("typegrade\n");
                 view.ChooseGradeLbl.setVisible(true);
                 view.GradesComB.setVisible(true);
                 view.insertBtn.setVisible(true);
-
-                //køre metode der sender info til model
-                //model.setGrades(Print.get(i).CoursesTaken, Print.get(i).StudentName);
-//Print.get(i).CoursesTaken.//Prøveatbrugedettetilatsættekarakterenlignoget.
             } else {
                 view.ChooseGradeLbl.setVisible(false);
                 view.GradesComB.setVisible(false);
