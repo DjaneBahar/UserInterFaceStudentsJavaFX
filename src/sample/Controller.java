@@ -63,11 +63,11 @@ public class Controller {
                 view.StudentText);
 
         EventHandler<ActionEvent> DisplayPrintOutCourse = e-> HandlePrintPrintCourse(view.CoursesComB.getValue(),
-                view.CourseText);
+               view.CourseText);
 
 
         EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), getStudents().indexOf(view.StudentComB.getValue()), "C2", view.StudentComB.getValue());
-        //getStudents().indexOf(view.StudentComB.getValue());
+        getStudents().indexOf(view.StudentComB.getValue());
 
 
         view.showRstBtn.setOnAction(DisplayPrintOutStudent);
@@ -91,6 +91,10 @@ public class Controller {
         // Kan måske også hente det ud fra navnet. Men det vil også sige at karaktererne bliver vist
         //Så det eneste der går galt er når vi skal skrive et id som vi skal redigere. Der kan vi måske hente det i et query med navnet.
         //Eller finde på noget smartere/hurtigere. Fordi det burde nok være sorteret alfabetisk, det er nice.
+        view.ChooseGradeLbl.setVisible(false);
+        view.GradesComB.setVisible(false);
+        view.insertBtn.setVisible(false);
+
     }
 
     public void HandlePrintStudent(String Students, TextArea studentText){
@@ -101,17 +105,19 @@ public class Controller {
 
 
         for(int i=0; i<Print.size(); i++){
-            // if (Print.get(i).TotalGrades == 0){
-            //  studentText.appendText(Print.get(i).StudentName  +
-            //  " has gotten null in this course. Please enter a grade!");
+             if (Print.get(i).TotalGrades == 0){
+              studentText.appendText(Print.get(i).StudentName  +
+                " hasnt received a grade in Software Development 2020 in spring semester yet.\n" +
+                "Please enter a grade above to proceed!\n\n");
 
-            //}
+            } else
             studentText.appendText(Print.get(i).StudentName + " has taken the course "
                     + Print.get(i).CoursesTaken + ".\n" + Print.get(i).StudentName + " has gotten the grade "
                     + Print.get(i).TotalGrades + " in this course, " +
                     " \nand has the average grade " + Print.get(i).AvgGrades + " from all courses taken.\n\n");
-            if(Print.get(0).TotalGrades==0){ //Print.get(0).TotalGrades er altså karakteren fra SD 2020. Så det virker faktisk nu. Tror lige jeg skal forstå dette bedre. Men det virker nu.
-                System.out.println("Bigschlong");
+
+            if(Print.get(0).TotalGrades==0){
+
                 //studentText.appendText("typegrade\n");
                 view.ChooseGradeLbl.setVisible(true);
                 view.GradesComB.setVisible(true);
@@ -137,6 +143,14 @@ public class Controller {
         ArrayList<StudentModel.PrintOutCourse> Print = model.FindPrintOutCourse(Courses);
 
         for(int j=0; j<Print.size(); j++){
+
+            if (Print.get(j).AvgCourseGrade == 0){
+                 courseText.appendText("The students haven't received any grades yet in " + Print.get(j).CourseName + ".\n"+
+                                          "Remember to enter the grades above for all the students,\n" +
+                                          "in order to get the total average grade of the course!\n\n");
+
+            } else
+
             courseText.appendText("The course " + Print.get(j).CourseName +
                     " has the average grade " + Print.get(j).AvgCourseGrade);
         }

@@ -138,7 +138,7 @@ public class StudentModel {
     }
 
     public void setGrades(String course, Integer student, Integer grade, String theStudent){
-        //Lortet virker!!!
+
         System.out.println(course);
         System.out.println(student);
         System.out.println(grade);
@@ -160,8 +160,7 @@ public class StudentModel {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(studentID + "small schlong");
-
+        System.out.println(studentID);
 
 
         String sqlSetGrade = "UPDATE Enrollment " +
@@ -173,20 +172,11 @@ public class StudentModel {
                 " AND CID = '" +
                 course +
                 "';";
-        /*
-        String sqlGetGrades="SELECT D1.name, D2.coursename, D3.grade " +
-                "FROM Grades as D3 " +
-                "JOIN Student as D1 ON D3.SID = D1.studentID " +
-                "JOIN Course as D2 ON D3.CID = D2.courseID " +
-                "WHERE D1.name = ? ;";
-         */
+
 
         try {
-            //Statement updAddGrade = conn.prepareStatement(sqlSetGrade);
-            //updAddGrade.executeUpdate(sqlSetGrade);
+
             conn.createStatement().executeUpdate(sqlSetGrade);
-
-
 
         }catch(SQLException e)
         {
