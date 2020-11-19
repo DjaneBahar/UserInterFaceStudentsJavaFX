@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    static String url="jdbc:sqlite:C:\\Users\\depay\\Downloads\\data.db";
+    static String url="jdbc:sqlite:C:\\Users\\depay\\Downloads\\data (1).db";
     static StudentModel SDB = new StudentModel(url);
 
     @Override

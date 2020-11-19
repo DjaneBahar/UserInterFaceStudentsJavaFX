@@ -12,7 +12,6 @@ public class StudentModel {
     PreparedStatement pstmt2 = null;
     PreparedStatement pstmt3 = null;
     String url;
-    PreparedStatement pstmtAddGrade = null;
 
     public StudentModel(String url){
         this.url=url;
@@ -136,10 +135,10 @@ public class StudentModel {
 
     }
 
-    public void setGrades(String course, Integer student, Integer grade, String theStudent){
+    public void setGrades(String course, Integer grade, String theStudent){
 
         System.out.println(course);
-        System.out.println(student);
+        System.out.println(theStudent);
         System.out.println(grade);
 
         //Statement that gets the studentID, using the name, to get the studentID of the chosen student

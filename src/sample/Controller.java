@@ -65,7 +65,7 @@ public class Controller {
                view.CourseText);
 
 
-        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), getStudents().indexOf(view.StudentComB.getValue()), "C2", view.StudentComB.getValue());
+        EventHandler<ActionEvent> AddGrade = e-> HandleAddGrade(view.GradesComB.getValue(), "C2", view.StudentComB.getValue());
         getStudents().indexOf(view.StudentComB.getValue());
 
 
@@ -77,9 +77,9 @@ public class Controller {
 
     }
 
-    public void HandleAddGrade(Integer grade, Integer Student, String course, String aStudent){
-        model.setGrades(course, Student, grade, aStudent);
-        System.out.println(Student);
+    public void HandleAddGrade(Integer grade, String course, String aStudent){
+        model.setGrades(course, grade, aStudent);
+        System.out.println(aStudent);
         view.ChooseGradeLbl.setVisible(false);
         view.GradesComB.setVisible(false);
         view.insertBtn.setVisible(false);
