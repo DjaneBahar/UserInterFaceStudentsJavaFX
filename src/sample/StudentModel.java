@@ -12,6 +12,7 @@ public class StudentModel {
     PreparedStatement pstmt2 = null;
     PreparedStatement pstmt3 = null;
     String url;
+    PreparedStatement pstmtAddGrade = null;
 
     public StudentModel(String url){
         this.url=url;
@@ -26,6 +27,7 @@ public class StudentModel {
     public ArrayList <String> StudentNameQuerystmt(){
         ArrayList <String> StudentNames = new ArrayList <String>();
         String sql = "SELECT name FROM Student ORDER BY name;";
+        //String sql = "SELECT name FROM Student ORDER BY studentID;"; //Virkede ikke. Af en eller anden grund var janet jensen nummer 1, resten så godt ud.
         ResultSet rs;
         try {
             rs = stmt.executeQuery(sql);
@@ -61,21 +63,21 @@ public class StudentModel {
     public  void preparedStmtToFromQuery(){
 
         String sql="SELECT D1.name, D2.coursename, D3.grade " +
-                "FROM Grades as D3 " +
+                "FROM Enrollment as D3 " +
                 "JOIN Student as D1 ON D3.SID = D1.studentID " +
                 "JOIN Course as D2 ON D3.CID = D2.courseID " +
                 "WHERE D1.name = ? ;";
 
 
         String sqlAvgGrade ="SELECT  avg(D3.grade) " +
-                "FROM Grades as D3 " +
+                "FROM Enrollment as D3 " +
                 "JOIN Student as D1 ON D3.SID = D1.studentID " +
                 "JOIN Course as D2 ON D3.CID = D2.courseID " +
                 "WHERE D1.name = ? ;";
 
 
         String sqlAvgCourse = "SELECT  coursename, avg(grade) "+
-                "FROM Grades " +
+                "FROM Enrollment " +
                 "JOIN Course ON CID = courseID " +
                 "WHERE coursename = ?; ";
 
@@ -133,6 +135,64 @@ public class StudentModel {
         return Print;
 
 
+    }
+
+    public void setGrades(String course, Integer student, Integer grade, String theStudent){
+        //Lortet virker!!!
+        System.out.println(course);
+        System.out.println(student);
+        System.out.println(grade);
+
+        //Kunne måske have statement hvor jeg henter Studentid fra  Student klassen først. Men hvordan gjorde de i den anden? den med student.
+
+        String studentID = null;
+        String sql = "SELECT studentID from Student WHERE name = '" +
+                theStudent +
+                "';";
+        ResultSet rs;
+        try {
+            rs = conn.createStatement().executeQuery(sql);
+            while (rs!=null && rs.next()){
+                studentID = rs.getString(1);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println(studentID + "small schlong");
+
+
+
+        String sqlSetGrade = "UPDATE Enrollment " +
+                "SET grade = " +
+                grade +
+                " WHERE SID = '" +
+                studentID +
+                "'" +
+                " AND CID = '" +
+                course +
+                "';";
+        /*
+        String sqlGetGrades="SELECT D1.name, D2.coursename, D3.grade " +
+                "FROM Grades as D3 " +
+                "JOIN Student as D1 ON D3.SID = D1.studentID " +
+                "JOIN Course as D2 ON D3.CID = D2.courseID " +
+                "WHERE D1.name = ? ;";
+         */
+
+        try {
+            //Statement updAddGrade = conn.prepareStatement(sqlSetGrade);
+            //updAddGrade.executeUpdate(sqlSetGrade);
+            conn.createStatement().executeUpdate(sqlSetGrade);
+
+
+
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
     class PrintOutStudent{

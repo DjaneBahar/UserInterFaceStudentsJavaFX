@@ -61,6 +61,7 @@ public class StudentView {
 
         Startview.add(StudentsLbl,1,3);
         Startview.add(ChooseGradeLbl, 2,3);
+        ChooseGradeLbl.setVisible(false);
 
 
         ObservableList<String>StudentList = control.getStudents();
@@ -76,8 +77,10 @@ public class StudentView {
         GradesComB.setItems(GradesList);
         GradesComB.getSelectionModel().selectFirst();
         Startview.add(GradesComB,2,5);
+        GradesComB.setVisible(false);
 
         Startview.add(insertBtn,2,7);
+        insertBtn.setVisible(false);
 
         //Print for Courses
         Startview.add(CourseHeader,1,21);
@@ -90,11 +93,11 @@ public class StudentView {
         Startview.add(avgCourseBtn,1,27);
         Startview.add(CourseText,1,29,30,10);
 
-         Startview.add(exitBtn,1,41);
+        Startview.add(exitBtn,1,41);
 
     }
-        public Parent asParent(){
-            return Startview;
-        }
+    public Parent asParent(){
+        return Startview;
+    }
 
 }
