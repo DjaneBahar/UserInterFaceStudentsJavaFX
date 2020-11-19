@@ -27,7 +27,6 @@ public class StudentModel {
     public ArrayList <String> StudentNameQuerystmt(){
         ArrayList <String> StudentNames = new ArrayList <String>();
         String sql = "SELECT name FROM Student ORDER BY name;";
-        //String sql = "SELECT name FROM Student ORDER BY studentID;"; //Virkede ikke. Af en eller anden grund var janet jensen nummer 1, resten så godt ud.
         ResultSet rs;
         try {
             rs = stmt.executeQuery(sql);
@@ -143,7 +142,7 @@ public class StudentModel {
         System.out.println(student);
         System.out.println(grade);
 
-        //Kunne måske have statement hvor jeg henter Studentid fra  Student klassen først. Men hvordan gjorde de i den anden? den med student.
+        //Statement that gets the studentID, using the name, to get the studentID of the chosen student
 
         String studentID = null;
         String sql = "SELECT studentID from Student WHERE name = '" +
