@@ -48,7 +48,6 @@ public class Controller {
     }
 
     public ObservableList<Integer> getSetGrades(){
-        //for(int i=0;i<7;i++){
         Integer [] setGrade = { -3, 0, 2, 4, 7, 10,12 };
         ObservableList<Integer> SetGrades = FXCollections.observableArrayList(setGrade);
         return SetGrades;
