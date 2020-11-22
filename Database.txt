@@ -1,0 +1,85 @@
+DROP TABLE IF EXISTS Course;
+CREATE TABLE IF NOT EXISTS "Course"
+(
+    `courseID` TEXT,
+    `teacherID` INTEGER,
+    `lecturer` TEXT,
+
+    PRIMARY KEY (`courseID`)
+);
+alter table Course add column coursename TEXT;
+
+
+DROP TABLE IF EXISTS Student;
+CREATE TABLE IF NOT EXISTS `Student`
+(
+    `studentID` TEXT,
+    `hometown` TEXT,
+    `name` TEXT,
+
+    PRIMARY KEY (`studentID`)
+);
+
+
+DROP TABLE IF EXISTS Enrollment;
+CREATE TABLE IF NOT EXISTS `Enrollment`
+(
+`SID` TEXT,
+`CID` TEXT,
+grade INTEGER,
+
+PRIMARY KEY (`SID`, `CID`),
+
+FOREIGN KEY (CID) REFERENCES Course(courseID) ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY (SID) REFERENCES Student(studentID) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+
+
+
+INSERT INTO Course(courseID, teacherid,coursename, lecturer) VALUES
+                                         ('C1', 1, 'Software Development: Autumn 2019', 'Line'),
+                                         ('C2', 1, 'Software Development: Spring 2020', 'Line'),
+                                         ('C3',2, 'Essential Computing 1: Autumn 2019', 'Ebbe');
+
+INSERT INTO Student(studentID, hometown, name) VALUES
+                                               ('S1', 'Nykøbing F', 'Aisha Lincoln'),
+                                               ('S2','Nykøbing F', 'Anya Nielsen'),
+                                               ('S3', 'Camas', 'Alfred Jensen'),
+                                               ('S4', 'Billund', 'Berta Bertelsen'),
+                                               ('S5','Sorø', 'Albert Antonsen'),
+                                               ('S6','Eskildstrup', 'Eske Eriksen'),
+                                               ('S7','Odense', 'Olaf Olesen'),
+                                               ('S8','Stockholm', 'Salma Simonsen'),
+                                               ('S9','Tølløse', 'Theis Thomasen'),
+                                               ('S10','Jyllinge','Janet Jensen');
+
+INSERT INTO Enrollment(SID, CID, grade) VALUES
+                                           ('S1','C1',12),
+                                           ('S1','C3',10),
+                                           ('S2','C2',null),
+                                           ('S2','C3',12),
+                                           ('S3','C1',7),
+                                           ('S3','C3',10),
+                                           ('S4','C2',null),
+                                           ('S4','C3',02),
+                                           ('S5','C1',10),
+                                           ('S5','C3',7),
+                                           ('S6','C2',null),
+                                           ('S6','C3',10),
+                                           ('S7','C1',4),
+                                           ('S7','C3',12),
+                                           ('S8','C2',null),
+                                           ('S8','C3',12),
+                                           ('S9','C1',12),
+                                           ('S9','C3',12),
+                                           ('S10','C2',null),
+                                           ('S10','C3',7);
+
+/*
+ Skriv forespørgsel nedenfor
+ */
+SELECT CID, avg(grade)
+FROM Enrollment
+GROUP by CID ORDER BY CID;
